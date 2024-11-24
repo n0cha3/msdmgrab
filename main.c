@@ -1,15 +1,14 @@
 #include "main.h"
 
-void FormatString(char *MSDMString) {
+/*void FormatString(char *MSDMString) {
 
-}
+}*/
 
 int main(void) {
     char *KeyString = NULL;
-    GetMSDMString(KeyString);
     if (KeyString != NULL) {
         puts(KeyString);
-        puts("test");
+        free(KeyString);
     }
     return EXIT_SUCCESS;
 }

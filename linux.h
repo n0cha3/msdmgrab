@@ -7,4 +7,4 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-bool GetMSDMString(char *Output);
+int GetMSDMString(char **Output);

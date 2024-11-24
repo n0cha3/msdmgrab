@@ -1,24 +1,25 @@
 #include "linux.h"
 
-bool GetMSDMString(char *Output) {
+int GetMSDMString(char **Output) {
     const char *AcpiPath = "/sys/firmware/acpi/tables";
-    const char *MSDM = "test.txt";
-    char *Buffer = NULL;
+    const char *MSDM = "/sys/firmware/acpi/tables/MSDM";
     struct stat DirStat;
+    int CharCount = 0;
     if (stat(AcpiPath, &DirStat) == 0 && S_ISDIR(DirStat.st_mode)) {
         int MSDMFile = open(MSDM, O_RDONLY);
             if (MSDMFile != -1) {
                 struct stat FileStat;
                 if (fstat(MSDMFile, &FileStat) == 0 && S_ISREG(FileStat.st_mode)) {
-                    Buffer = calloc(FileStat.st_size + 1, sizeof(char));
-                    read(MSDMFile, Buffer, FileStat.st_size);
-                    Buffer[FileStat.st_size] = '\0';
-                    Output = Buffer;
+                    *Output = calloc(FileStat.st_size + 1, sizeof(char));
+                    read(MSDMFile, *Output, FileStat.st_size);
+                    Output[FileStat.st_size] = '\0';
+                    close(MSDMFile);
+                    CharCount = FileStat.st_size;
                 }  
             }
 
-            else return false;
+            else return 0;
     }
 
-    return true;
+    return CharCount;
 } 
