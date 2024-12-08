@@ -6,6 +6,8 @@
 #include <stdint.h>
 
 #define NOT_UEFI -3
+#define KEY_OFFSET (Len) (Len - 29)
+
 
 typedef struct LicenseTable {
 	uint32_t Signature;

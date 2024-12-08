@@ -12,7 +12,7 @@ int GetMSDMString(char** Output) {
                 FwBuffer[TableSize] = '\0';
                 if (GetSystemFirmwareTable('ACPI', 'PCAF', FwBuffer, TableSize)) {
                     MessageBoxA(NULL, FwBuffer, "table output", MB_OK);
-                }
+                }  //atm i use the pcaf table to test output since vmware doesnt have a slic table
             }
         }
         else return NOT_UEFI;
